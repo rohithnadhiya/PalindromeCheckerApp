@@ -1,18 +1,12 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
- * =====================================================
+ * -----------------------------------------------------
  * MAIN CLASS - PalindromeCheckerApp
- * =====================================================
+ * -----------------------------------------------------
  *
- * Use Case 11: Object-Oriented Palindrome Service
- *
- * Description:
- * This class demonstrates palindrome validation using
- * object-oriented design.
- *
- * The palindrome logic is encapsulated inside a
- * PalindromeService class.
+ * UC12: Strategy Pattern for Palindrome Algorithms
  */
 
 public class PalindromeCheckerApp {
@@ -24,11 +18,10 @@ public class PalindromeCheckerApp {
         System.out.print("Input : ");
         String input = sc.nextLine();
 
-        // Create service object
-        PalindromeService service = new PalindromeService();
+        // Choose strategy at runtime
+        PalindromeStrategy strategy = new StackStrategy();
 
-        // Call palindrome checking method
-        boolean result = service.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Is Palindrome? : " + result);
 
@@ -37,27 +30,32 @@ public class PalindromeCheckerApp {
 }
 
 /**
- * Service class that contains palindrome logic
+ * Strategy Interface
  */
-class PalindromeService {
+interface PalindromeStrategy {
 
-    /**
-     * Checks whether the input string is a palindrome
-     */
-    public boolean checkPalindrome(String input) {
+    boolean check(String input);
+}
 
-        int start = 0;
-        int end = input.length() - 1;
+/**
+ * Stack Strategy Implementation
+ */
+class StackStrategy implements PalindromeStrategy {
 
-        // Compare characters moving inward
-        while (start < end) {
+    public boolean check(String input) {
 
-            if (input.charAt(start) != input.charAt(end)) {
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        // Compare while popping
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
