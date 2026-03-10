@@ -1,3 +1,22 @@
+/**
+ * -----------------------------------------------------
+ * MAIN CLASS - UseCase10PalindromeCheckerApp
+ * -----------------------------------------------------
+ *
+ * Use Case 10: Normalized Palindrome Validation
+ *
+ * Description:
+ * This class validates a palindrome after preprocessing
+ * the input string.
+ *
+ * Normalization includes:
+ * - Removing spaces and symbols
+ * - Converting to lowercase
+ *
+ * Example:
+ * "A man a plan a canal Panama"
+ */
+
 import java.util.Scanner;
 
 public class PalindromeCheckerApp {
@@ -6,19 +25,24 @@ public class PalindromeCheckerApp {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Input text: ");
+        System.out.print("Input: ");
         String input = sc.nextLine();
 
-        String reversed = "";
+        // Normalize string
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        // Iterate from the last character to the first
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        boolean isPalindrome = true;
+
+        // Compare characters from both ends
+        for (int i = 0; i < normalized.length() / 2; i++) {
+
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        boolean isPalindrome = input.equals(reversed);
-
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        System.out.println("Is Palindrome?: " + isPalindrome);
 
         sc.close();
     }
