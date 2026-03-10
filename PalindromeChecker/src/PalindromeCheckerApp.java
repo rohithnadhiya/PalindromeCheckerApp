@@ -3,6 +3,18 @@ import java.util.Stack;
 
 
 
+/**
+ * -----------------------------------------------------
+ * MAIN CLASS - PalindromeCheckerApp
+ * -----------------------------------------------------
+ *
+ * UC9: Recursive Palindrome Checker
+ *
+ * Description:
+ * This program checks whether a string is a palindrome
+ * using recursion.
+ */
+
 public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
@@ -13,11 +25,5 @@ public class PalindromeCheckerApp {
         String input = sc.nextLine();
 
 
-
-        long endTime = System.nanoTime();
-        long executionTime = endTime - startTime;
-
-
-        return true;
     }
 }
