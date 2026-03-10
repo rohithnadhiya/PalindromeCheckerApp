@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Stack;
+
 
 
 public class PalindromeCheckerApp {
@@ -12,12 +14,8 @@ public class PalindromeCheckerApp {
 
 
 
-        // Call palindrome checking method
-        boolean result = service.checkPalindrome(input);
-
-
-            }
-
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
 
 
         return true;
