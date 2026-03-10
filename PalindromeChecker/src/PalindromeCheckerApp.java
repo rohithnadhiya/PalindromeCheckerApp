@@ -1,18 +1,16 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
- * =====================================================
+ * -----------------------------------------------------
  * MAIN CLASS - PalindromeCheckerApp
- * =====================================================
+ * -----------------------------------------------------
  *
- * Use Case 11: Object-Oriented Palindrome Service
+ * UC13: Performance Comparison
  *
  * Description:
- * This class demonstrates palindrome validation using
- * object-oriented design.
- *
- * The palindrome logic is encapsulated inside a
- * PalindromeService class.
+ * Measures execution time of a palindrome algorithm
+ * using System.nanoTime().
  */
 
 public class PalindromeCheckerApp {
@@ -24,40 +22,46 @@ public class PalindromeCheckerApp {
         System.out.print("Input : ");
         String input = sc.nextLine();
 
-        // Create service object
-        PalindromeService service = new PalindromeService();
+        PalindromeStrategy strategy = new StackStrategy();
 
-        // Call palindrome checking method
-        boolean result = service.checkPalindrome(input);
+        long startTime = System.nanoTime();
+
+        boolean result = strategy.check(input);
+
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
 
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + executionTime + " ns");
 
         sc.close();
     }
 }
 
 /**
- * Service class that contains palindrome logic
+ * Strategy Interface
  */
-class PalindromeService {
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-    /**
-     * Checks whether the input string is a palindrome
-     */
-    public boolean checkPalindrome(String input) {
+/**
+ * Stack based palindrome strategy
+ */
+class StackStrategy implements PalindromeStrategy {
 
-        int start = 0;
-        int end = input.length() - 1;
+    public boolean check(String input) {
 
-        // Compare characters moving inward
-        while (start < end) {
+        Stack<Character> stack = new Stack<>();
 
-            if (input.charAt(start) != input.charAt(end)) {
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-
-            start++;
-            end--;
         }
 
         return true;
